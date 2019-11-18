@@ -1,7 +1,16 @@
 .App {
   text-align: center;
+  width: 3000px;
+  height: 3000px
 }
-
+body{
+  background-color: #00003a;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  
+}
 .App-logo {
   height: 40vmin;
 }
