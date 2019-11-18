@@ -5,12 +5,6 @@ import 'react-calendar-timeline/lib/Timeline.css'
 import Rdv from './Rdv';
 import './App.css'
 
-//Trendy colours 
-//#fc8780
-//#f8dcca
-//#7a9ba6
-//#3a4a62
-
 const GRID_INTERVAL_X = 25;
 const ROW_HEIGHT = 200;
 const viewWidth = 2000;
@@ -18,9 +12,9 @@ const viewWidth = 2000;
 
 const viewStartDate = new Date('1995-12-10T03:24:00');
 const viewEndDate = new Date('1995-12-17T03:24:00');
-const rdv2StartDate = new Date('1995-12-11T03:24:00');
-
-const rdvStartDate = new Date('1995-12-11T22:24:00');
+const rdvStartDate = new Date('1995-12-13T12:24:00');
+const rdv2StartDate = new Date('1995-12-12T03:24:00');
+const rdv3StartDate = new Date('1995-12-10T22:24:00');
 
 const getLeftOffset = (
   viewWidth,
@@ -39,14 +33,11 @@ const Column = (index, gridSpacingY)=>(
     style={{
       height: ROW_HEIGHT + 'px',
       width: viewWidth + 'px',
-      //borderStyle: 'solid',
-      // borderWidth: '3px 0px 0px 3px',
-      // borderColor: 'white',
       position: 'aboslute',
       margin:'6px',
       padding:0,
       backgroundColor: (index % 2 )? 'rgb(226, 226, 226)' : 'white',
-
+      boxShadow: '-5px -6px rgba(255, 255, 255, 0.4)'
     }}></div>)
 
 
@@ -57,6 +48,7 @@ const App = () => (
     {/* <CustomTimeline /> */}
     <Rdv offset={getLeftOffset(viewWidth, rdvStartDate, viewStartDate, viewEndDate)} gridSpacingX={GRID_INTERVAL_X} gridSpacingY={ROW_HEIGHT} />
     <Rdv offset={getLeftOffset(viewWidth, rdv2StartDate, viewStartDate, viewEndDate)} gridSpacingX={GRID_INTERVAL_X} gridSpacingY={ROW_HEIGHT} />
+    <Rdv master={true} offset={getLeftOffset(viewWidth, rdv3StartDate, viewStartDate, viewEndDate)} gridSpacingX={GRID_INTERVAL_X} gridSpacingY={ROW_HEIGHT} />
     {Array(10).fill('').map((nothing,i)=>Column(i, ROW_HEIGHT))}
     </div>
   </div>

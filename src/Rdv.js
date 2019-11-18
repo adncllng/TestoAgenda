@@ -72,7 +72,7 @@ export default class Rdv extends React.Component {
     }
 
     render() {
-        const { offset, gridSpacingX, gridSpacingY} = this.props;
+        const { offset, gridSpacingX, gridSpacingY, master} = this.props;
         const { moveDisabled } = this.state.selected
 
 
@@ -80,6 +80,9 @@ export default class Rdv extends React.Component {
             position: 'absolute',
             left: offset,
             background: '#00A8A8',
+            opacity: master ? 0.15 : 1,
+            // transform: this.state.selected ? 'translate(-10px, -10px)' : '',
+            zIndex: master ? 0 : 1,
             boxShadow: this.state.selected ? '15px 15px rgba(0, 0, 0, 0.5)' : '10px 10px rgba(0, 0, 0, 0.5)',
             margin: '-15px'
         }
@@ -102,15 +105,16 @@ export default class Rdv extends React.Component {
 
 
         return (
-            <div >
+            <div>
                 <div className="layoutRoot">
                     <Draggable
                         grid={[gridSpacingX, gridSpacingY]}
                         disabled={this.state.selected}
                         onDrag={this.handleDrag}
                         {...dragHandlers}
+                        
                     >
-                        <div style={rdvStyle} >
+                        <div style={rdvStyle}  >
                             <ResizableBox className="box"
                                 handle={getHandle()}
                                 onResizeStop={this.onResizeStop}
@@ -121,10 +125,11 @@ export default class Rdv extends React.Component {
                                 draggableOpts={{ grid: [gridSpacingX, gridSpacingX] }}
                             >
                                 <div style= {{margin:'20px'}}>TERRY'S BANK</div>
-                                <div style= {{margin:'10px'}}> width: {this.state.width}</div>
-                                <div style= {{margin:'10px'}}>x: {deltaPosition.x.toFixed(0)}</div>
-                                <div style= {{margin:'10px'}}>y: {deltaPosition.y.toFixed(0)}</div>
-                                <div style= {{margin:'10px'}}>y-index: {deltaPosition.y.toFixed(0) / gridSpacingY}</div>
+                                <div style= {{margin:'10px'}}> WIDTH: {this.state.width}</div>
+                                <div style= {{margin:'10px'}}>CHANGE-X: {deltaPosition.x.toFixed(0)}</div>
+                                <div style= {{margin:'10px'}}>Y: {deltaPosition.y.toFixed(0)}</div>
+                                <div style= {{margin:'10px'}}>Y-INDEX: {deltaPosition.y.toFixed(0) / gridSpacingY}</div>
+                                <div style= {{margin:'10px'}}>LOCK: {(!this.state.selected).toString()}</div>
                                 <span className="lock-indicator" style={lockIndicatorStyle} onClick={this.onClick}> {this.state.selected ? '🔓' : '🔒'}</span>
                             </ResizableBox>
 
