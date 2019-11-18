@@ -4,11 +4,13 @@
   height: 3000px
 }
 body{
-  background-color: #00003a;
+  background-color: black;
   font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
   color: #fff;
   margin: 0;
   padding: 0;
+
   
 }
 .App-logo {

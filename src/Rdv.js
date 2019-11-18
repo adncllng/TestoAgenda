@@ -19,7 +19,8 @@ export default class Rdv extends React.Component {
 
         this.state = {
             width: 200,
-            height: this.props.gridSpacingY,
+            height: this.props.gridSpacingY - 20,
+            marginBottom:10,
             offset: 10,
             selected: false,
             moveDisabled: false,
@@ -69,28 +70,31 @@ export default class Rdv extends React.Component {
         const newWidth = data.size.width;
         this.setState({width:newWidth})
         this.setState({ selected: !this.state.selected });
+        this.props.onRdvChange({width: newWidth})
     }
 
     render() {
-        const { offset, gridSpacingX, gridSpacingY, master} = this.props;
+        const { offset, gridSpacingX, gridSpacingY, master, title} = this.props;
         const { moveDisabled } = this.state.selected
 
 
         const rdvStyle = {
             position: 'absolute',
-            left: offset,
-            background: '#00A8A8',
+            left: offset[0],
+            top: offset[1],
+            background: 'blue',
             opacity: master ? 0.15 : 1,
             // transform: this.state.selected ? 'translate(-10px, -10px)' : '',
             zIndex: master ? 0 : 1,
             boxShadow: this.state.selected ? '15px 15px rgba(0, 0, 0, 0.5)' : '10px 10px rgba(0, 0, 0, 0.5)',
-            margin: '-15px'
+            // margin: '-15px',
+            marginBottom:'50px',
         }
 
         const lockIndicatorStyle = {
             position: 'absolute',
-            right: '0px',
-            bottom: '10px',
+            right: '15px',
+            bottom: '15px',
         }
 
         const getHandle = () => {
@@ -121,16 +125,17 @@ export default class Rdv extends React.Component {
                                 handleSize={[8, 8]} 
                                 axis={this.state.selected ? "x" : 'none'} 
                                 width={200}
-                                height={200}
+                                height={160}
                                 draggableOpts={{ grid: [gridSpacingX, gridSpacingX] }}
                             >
-                                <div style= {{margin:'20px'}}>TERRY'S BANK</div>
-                                <div style= {{margin:'10px'}}> WIDTH: {this.state.width}</div>
+                                <div className="rdv-text" style={{border:'solid 2px white', margin:'8px', height:'92%'}}>
+                                <div style= {{margin:'20px', borderWidth:'0px 2px 0px 2px', color:'#4adf60', borderStyle: 'solid', borderColor:'white', marginTop:'-5px', backgroundColor:'blue'}}>{title}</div>
+                                <div style= {{margin:'10px', color : 'black'}}> WIDTH: {this.state.width}</div>
                                 <div style= {{margin:'10px'}}>CHANGE-X: {deltaPosition.x.toFixed(0)}</div>
-                                <div style= {{margin:'10px'}}>Y: {deltaPosition.y.toFixed(0)}</div>
-                                <div style= {{margin:'10px'}}>Y-INDEX: {deltaPosition.y.toFixed(0) / gridSpacingY}</div>
+                                <div style= {{margin:'10px'}}>CHANGE-Y: {deltaPosition.y.toFixed(0) / gridSpacingY}</div>
                                 <div style= {{margin:'10px'}}>LOCK: {(!this.state.selected).toString()}</div>
                                 <span className="lock-indicator" style={lockIndicatorStyle} onClick={this.onClick}> {this.state.selected ? '🔓' : '🔒'}</span>
+                                </div>
                             </ResizableBox>
 
                         </div>

@@ -2,7 +2,7 @@ import faker from 'faker'
 import randomColor from 'randomcolor'
 import moment from 'moment'
 
-export default function (groupCount = 10, itemCount = 500, daysInPast = 30) {
+export default function (groupCount = 10, itemCount = (5*15*20), daysInPast = 7) {
   let randomSeed = Math.floor(Math.random() * 1000)
   let groups = []
   for (let i = 0; i < groupCount; i++) {
@@ -14,7 +14,7 @@ export default function (groupCount = 10, itemCount = 500, daysInPast = 30) {
     })
   }
 
-  let items = []
+  let items = [];
   for (let i = 0; i < itemCount; i++) {
     const startDate = faker.date.recent(daysInPast).valueOf() + (daysInPast * 0.3) * 86400 * 1000
     const startValue = Math.floor(moment(startDate).valueOf() / 10000000) * 10000000
@@ -23,7 +23,7 @@ export default function (groupCount = 10, itemCount = 500, daysInPast = 30) {
     items.push({
       id: i + '',
       group: faker.random.number({ min: 1, max: groups.length }) + '',
-      title: faker.hacker.phrase(),
+      title: faker.company.catchPhraseAdjective(),
       start: startValue,
       end: endValue,
       // canMove: startValue > new Date().getTime(),
